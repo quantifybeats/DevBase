@@ -1,0 +1,63 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+
+// Pages
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import ExamScope from './pages/ExamScope';
+import FixMyCode from './pages/FixMyCode';
+import RoleReady from './pages/RoleReady';
+
+const ProtectedRoute = ({ children }) => {
+  const { user } = useAuth();
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col font-sans">
+        {/* Simple header */}
+        <header className="bg-white shadow-sm p-4 flex justify-between items-center border-b border-slate-200">
+          <div className="text-xl font-bold text-blue-600">DevBase</div>
+        </header>
+
+        <main className="flex-grow p-4 md:p-8">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/examscope" element={
+              <ProtectedRoute>
+                <ExamScope />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/fixmycode" element={
+              <ProtectedRoute>
+                <FixMyCode />
+              </ProtectedRoute>
+            } />
+            
+            <Route path="/roleready" element={
+              <ProtectedRoute>
+                <RoleReady />
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
+};
+
+export default App;
