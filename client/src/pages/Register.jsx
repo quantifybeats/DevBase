@@ -8,7 +8,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('Student');
+  const [role, setRole] = useState('student');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +24,8 @@ const Register = () => {
       login(res.data.data.token, res.data.data.user);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
+      const errorMessage = err.response?.data?.details?.[0]?.message || err.response?.data?.error || 'Registration failed';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
