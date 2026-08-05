@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/error.middleware.js';
 import authRoutes from './routes/auth.routes.js';
 import aiRoutes from './routes/ai.routes.js';
 import resumeRoutes from './routes/resume.routes.js';
+import examRoutes from './routes/exam.routes.js';
 
 dotenv.config({ path: '../.env' }); // Adjust if .env is inside server folder
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/resume', resumeRoutes);
+app.use('/api/exam', examRoutes);
 
 // Health check
 app.get('/', (req, res) => {

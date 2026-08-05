@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
 // Pages
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
@@ -20,17 +21,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="min-h-screen flex flex-col font-sans">
-        {/* Simple header */}
-        <header className="bg-white shadow-sm p-4 flex justify-between items-center border-b border-slate-200">
-          <div className="text-xl font-bold text-blue-600">DevBase</div>
-        </header>
-
-        <main className="flex-grow p-4 md:p-8">
+        <main className="flex-grow">
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             
-            <Route path="/" element={
+            <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
