@@ -22,7 +22,8 @@ const Login = () => {
       login(res.data.data.token, res.data.data.user);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed');
+      const errorMessage = err.response?.data?.details?.[0]?.message || err.response?.data?.error || 'Login failed';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
